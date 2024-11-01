@@ -101,7 +101,7 @@ public class ModConfig {
     public static final String DEFAULT_CONFIG = """
             {
               "TECHNICAL": {
-                "VERSION_DO_NOT_EDIT": 1.5,
+                "VERSION_DO_NOT_EDIT": 1,
                 "FORCE_RESET": false
               },
               
@@ -111,6 +111,68 @@ public class ModConfig {
               
               // CATEGORY: SCROLLS
               "scrolls": {
+                "zombie": {
+                  "xp_cost": 10,
+                  "durability_cost": 1
+                },
+                "spider": {
+                  "xp_cost": 10,
+                  "durability_cost": 1
+                },
+                "spider_jockey": {
+                  "xp_cost": 10,
+                  "durability_cost": 1
+                },
+                "skeleton": {
+                  "xp_cost": 15,
+                  "durability_cost": 2
+                },
+                "bee": {
+                  "xp_cost": 15,
+                  "durability_cost": 5
+                },
+                
+                "husk": {
+                  "xp_cost": 20,
+                  "durability_cost": 5
+                },
+                "stray": {
+                  "xp_cost": 20,
+                  "durability_cost": 5
+                },
+                "cave_spider": {
+                  "xp_cost": 15,
+                  "durability_cost": 5
+                },
+                "enderman": {
+                  "xp_cost": 30,
+                  "durability_cost": 5
+                },
+                "piglin": {
+                  "xp_cost": 30,
+                  "durability_cost": 10
+                },
+                
+                "creeper": {
+                  "xp_cost": 40,
+                  "durability_cost": 10
+                },
+                "piglin_brute": {
+                  "xp_cost": 50,
+                  "durability_cost": 10
+                },
+                "shulkerman": {
+                  "xp_cost": 40,
+                  "durability_cost": 10
+                },
+                "iron_golem": {
+                  "xp_cost": 50,
+                  "durability_cost": 10
+                },
+                "charged_creeper": {
+                  "xp_cost": 60,
+                  "durability_cost": 15
+                }
               }
             }""";
 }

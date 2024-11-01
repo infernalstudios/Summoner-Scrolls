@@ -22,7 +22,7 @@ public class ConfigEntry<T> {
         public Scroll(String path, int xp, int durability) {
             this.path = path;
             this.xp_entry = new ConfigEntry<>(path + ".xp_cost", xp);
-            this.durability_entry = new ConfigEntry<>(path + ".durability", durability);
+            this.durability_entry = new ConfigEntry<>(path + ".durability_cost", durability);
 
             this.get();
             INSTANCES.add(this);
