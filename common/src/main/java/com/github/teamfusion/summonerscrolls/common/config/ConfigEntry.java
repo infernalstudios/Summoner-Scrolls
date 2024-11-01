@@ -3,11 +3,43 @@ package com.github.teamfusion.summonerscrolls.common.config;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class ConfigEntry<T> {
+    public static class Scroll {
+        private static List<Scroll> INSTANCES = new ArrayList<>();
+
+        public String path;
+        private final ConfigEntry<Integer> xp_entry;
+        private final ConfigEntry<Integer> durability_entry;
+
+        public int xp;
+        public int durability;
+
+        public Scroll(String path, int xp, int durability) {
+            this.path = path;
+            this.xp_entry = new ConfigEntry<>(path + ".xp_cost", xp);
+            this.durability_entry = new ConfigEntry<>(path + ".durability", durability);
+
+            this.get();
+            INSTANCES.add(this);
+        }
+
+        public void get() {
+            this.xp = this.xp_entry.get();
+            this.durability = this.durability_entry.get();
+        }
+
+        public static void reload() {
+            for (Scroll scroll : INSTANCES)
+                scroll.get();
+        }
+    }
+
+
     private final List<String> path;
     private final T fallback;
 
