@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 public class EnvironmentImpl {
@@ -16,5 +17,9 @@ public class EnvironmentImpl {
 
     public static boolean isClientSide() {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+    }
+
+    public static Path getConfigDir() {
+        return FabricLoader.getInstance().getConfigDir();
     }
 }

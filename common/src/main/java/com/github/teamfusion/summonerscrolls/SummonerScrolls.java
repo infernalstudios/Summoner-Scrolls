@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls;
 
 import com.github.teamfusion.summonerscrolls.client.SSClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
+import com.github.teamfusion.summonerscrolls.common.config.ModConfig;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
@@ -20,7 +21,7 @@ public class SummonerScrolls {
     public static final String MOD_ID = "summonerscrolls";
     public static final String MOD_NAME = "Summoner Scrolls";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
-    public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SSClient::commonClientInitialize).postClient(SSClient::postClientInitialize).build();
+    public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SSClient::commonClientInitialize).postClient(SSClient::postClientInitialize).common(ModConfig::register).build();
 
     public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(new ResourceLocation(MOD_ID, "scrolls_tab"), () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
     
@@ -40,6 +41,10 @@ public class SummonerScrolls {
         SSTrades.init();
 
 //        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SSClient::commonClientInitialize);
+    }
+
+    public static void log(String message) {
+        LOGGER.info(message);
     }
 
     //todo: put todos in respective classes
