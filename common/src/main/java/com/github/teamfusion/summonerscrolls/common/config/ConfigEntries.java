@@ -3,7 +3,12 @@ package com.github.teamfusion.summonerscrolls.common.config;
 public class ConfigEntries {
     public static void reload() {
         ConfigEntry.Scroll.reload();
+
+        anvilXPCost = new ConfigEntry<>("scrolls.anvil_xp_cost", 8).get();
     }
+
+
+    public static int anvilXPCost;
 
     public static ConfigEntry.Scroll zombie = new ConfigEntry.Scroll("scrolls.zombie", 10, 1);
     public static ConfigEntry.Scroll spider = new ConfigEntry.Scroll("scrolls.spider", 10, 1);

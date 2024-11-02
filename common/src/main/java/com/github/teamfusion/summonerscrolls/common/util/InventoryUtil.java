@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
+import com.github.teamfusion.summonerscrolls.common.config.ConfigEntries;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import net.minecraft.network.chat.Component;
@@ -65,10 +66,11 @@ public class InventoryUtil {
                     }
 
                     outputSlot.setItem(0, copy);
-                    container.cost.set(8);
+                    container.cost.set(ConfigEntries.anvilXPCost);
                 }
             }
+            return false;
         }
-        return false;
+        return true;
     }
 }

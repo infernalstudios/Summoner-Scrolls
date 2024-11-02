@@ -111,6 +111,10 @@ public class ModConfig {
               
               // CATEGORY: SCROLLS
               "scrolls": {
+                // Level cost to add a scroll to an item in an anvil
+                "anvil_xp_cost": 8,
+              
+                // Summon costs
                 "zombie": {
                   "xp_cost": 10,
                   "durability_cost": 1
