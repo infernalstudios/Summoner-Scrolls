@@ -2,7 +2,7 @@ package com.github.teamfusion.summonerscrolls.forge;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
-import com.github.teamfusion.summonerscrolls.common.registry.SSEvents;
+import com.github.teamfusion.summonerscrolls.common.registry.SummonerEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -63,6 +63,6 @@ public class CommonEvents {
     public static void onEntityInteract(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
-        SSEvents.useScroll(player, hand);
+        SummonerEvents.useScroll(player, hand);
     }
 }

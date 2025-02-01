@@ -15,23 +15,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-//@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class ScrollItem extends Item {
-    public Supplier<Enchantment> enchantment;
 
     public ScrollItem(Supplier<Enchantment> enchantment, Properties properties) {
         super(properties);
-        this.enchantment = enchantment;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
         list.add((Component.translatable("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
-    }
-
-    public Supplier<Enchantment> getEnchantment() {
-        return enchantment;
     }
 }

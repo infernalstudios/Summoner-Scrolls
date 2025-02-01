@@ -33,7 +33,7 @@ public class ModConfig {
     public static void register(boolean force) {
         String path = Environment.getConfigDir().resolve(SummonerScrolls.MOD_ID + ".json").toString();
 
-        SummonerScrolls.log("Loading Configs for SummonerScrolls");
+        SummonerScrolls.LOGGER.info("Loading Configs for SummonerScrolls");
 
         // Create config file if it doesn't exist already
         File config = new File(path);
@@ -48,7 +48,7 @@ public class ModConfig {
                 writer.write(DEFAULT_CONFIG);
                 writer.close();
 
-                SummonerScrolls.log("SummonerScrolls Config file created");
+                SummonerScrolls.LOGGER.info("SummonerScrolls Config file created");
             }
             catch (IOException e) {
                 e.printStackTrace();

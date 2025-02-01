@@ -6,9 +6,9 @@
   "client": [
   ],
   "mixins": [
+    "CreeperAccessor",
     "ItemPropertiesAccessor",
-    "PlayerMixin",
-    "access.CreeperAccessor"
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

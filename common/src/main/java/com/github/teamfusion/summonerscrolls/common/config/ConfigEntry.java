@@ -69,12 +69,12 @@ public class ConfigEntry<T> {
                 if (Objects.equals(step, this.path.get(this.path.size() - 1)))
                     result = next.get(step);
                 else {
-                    SummonerScrolls.log("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
+                    SummonerScrolls.LOGGER.info("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
                     return fallback;
                 }
             }
             if (next == null) {
-                SummonerScrolls.log("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
+                SummonerScrolls.LOGGER.info("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
                 return fallback;
             }
         }
@@ -93,7 +93,7 @@ public class ConfigEntry<T> {
         if (fallback instanceof List)
             return (T) result;
 
-        SummonerScrolls.log("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
+        SummonerScrolls.LOGGER.info("Couldn't find config value for path : \"" + this.path + "\", defaulting to " + fallback);
         return fallback;
     }
 }

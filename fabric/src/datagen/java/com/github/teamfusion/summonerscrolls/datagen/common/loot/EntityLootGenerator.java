@@ -1,7 +1,7 @@
 package com.github.teamfusion.summonerscrolls.datagen.common.loot;
 
-import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
-import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.entity.SummonerEntityTypes;
+import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -28,111 +28,111 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
         /* Tier 1 */
-        this.add(SSEntityTypes.ZOMBIE_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.ZOMBIE_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.ZOMBIE_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.ZOMBIE_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.SPIDER_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.SPIDER_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.SPIDER_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.SPIDER_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.SPIDER_JOCKEY_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.SPIDER_JOCKEY_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.SPIDER_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.SPIDER_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
         )
         );
-        this.add(SSEntityTypes.SKELETON_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.SKELETON_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.SKELETON_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.SKELETON_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.BEE_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.BEE_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.BEE_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
+                        .add(LootItem.lootTableItem(SummonerItems.BEE_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
                         .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                 )
         );
 
         /* Tier 2 */
-        this.add(SSEntityTypes.HUSK_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.HUSK_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.HUSK_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.HUSK_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.STRAY_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.STRAY_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.STRAY_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.STRAY_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.CAVE_SPIDER_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.CAVE_SPIDER_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.CAVE_SPIDER_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.CAVE_SPIDER_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.ENDERMAN_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.ENDERMAN_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.ENDERMAN_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.ENDERMAN_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.PIGLIN_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.PIGLIN_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.PIGLIN_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
+                        .add(LootItem.lootTableItem(SummonerItems.PIGLIN_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
                         .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                 )
         );
 
         /* TODO - Tier 3 */
-        this.add(SSEntityTypes.CREEPER_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.CREEPER_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.CREEPER_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.CREEPER_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.CHARGED_CREEPER_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.CHARGED_CREEPER_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.CHARGED_CREEPER_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.CHARGED_CREEPER_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.PIGLIN_BRUTE_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.PIGLIN_BRUTE_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.PIGLIN_BRUTE_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.PIGLIN_BRUTE_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.SHULKERMAN_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.SHULKERMAN_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.IRON_GOLEM_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.IRON_GOLEM_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-        this.add(SSEntityTypes.IRON_GOLEM_SUMMON, consumer, LootTable.lootTable()
+        this.add(SummonerEntityTypes.IRON_GOLEM_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(SSItems.IRON_GOLEM_SCROLL.get()))
+                        .add(LootItem.lootTableItem(SummonerItems.IRON_GOLEM_SCROLL.get()))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )

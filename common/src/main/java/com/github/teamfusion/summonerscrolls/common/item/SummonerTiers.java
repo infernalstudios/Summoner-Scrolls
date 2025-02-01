@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.item;
 
-import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public enum SummonerTiers implements Tier {
-    SUMMONER(3, 32, 12.0F, 2.0F, 22, () -> Ingredient.of(SSItems.ENHANCEMENT_SCROLL.get()));
+    SUMMONER(3, 32, 12.0F, 2.0F, 22, () -> Ingredient.of(SummonerItems.ENHANCEMENT_SCROLL.get()));
 
     private final int level;
     private final int uses;

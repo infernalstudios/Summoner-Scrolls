@@ -1,11 +1,19 @@
 {
-  "entity.summon.death": {
+  "summon_death": {
     "category": "entity",
     "subtitle": "entity.summon.death",
     "sounds": [
       {
-        "name": "summonerscrolls:entity/summon/entity.summon.death",
-        "stream": true
+        "name": "summonerscrolls:summon_death"
+      }
+    ]
+  },
+  "summon_death_april": {
+    "category": "entity",
+    "subtitle": "entity.summon.death",
+    "sounds": [
+      {
+        "name": "summonerscrolls:summon_death_april"
       }
     ]
   }
