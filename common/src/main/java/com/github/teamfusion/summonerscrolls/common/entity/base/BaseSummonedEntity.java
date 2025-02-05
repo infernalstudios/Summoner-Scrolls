@@ -3,12 +3,15 @@ package com.github.teamfusion.summonerscrolls.common.entity.base;
 
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerSoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -21,11 +24,15 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.UUID;
 
-public class BaseSummonedEntity extends PathfinderMob implements ISummon, NeutralMob {
+public abstract class BaseSummonedEntity extends PathfinderMob implements ISummon, NeutralMob {
 
     private UUID ownerUUID;
     private int despawnDelay;
@@ -35,7 +42,7 @@ public class BaseSummonedEntity extends PathfinderMob implements ISummon, Neutra
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 
     @Nullable
-    private UUID persistentAngerTarget;
+    protected UUID persistentAngerTarget;
 
     public BaseSummonedEntity(EntityType<? extends BaseSummonedEntity> entityType, Level level) {
         super(entityType, level);
@@ -78,13 +85,7 @@ public class BaseSummonedEntity extends PathfinderMob implements ISummon, Neutra
     }
 
     @Override
-    public boolean isBaby() {
-        return false;
-    }
-
-    @Override
     public boolean hurt(DamageSource damageSource, float amount) {
-
         if (damageSource == DamageSource.OUT_OF_WORLD) {
             return super.hurt(damageSource, amount);
         }
@@ -118,8 +119,17 @@ public class BaseSummonedEntity extends PathfinderMob implements ISummon, Neutra
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SummonerSoundEvents.SUMMON_DEATH.get();
+        LocalDate today = LocalDate.now();
+        boolean aprilFools = today.getMonthValue() == 4 && today.getDayOfMonth() == 1;
+        return aprilFools ? SummonerSoundEvents.SUMMON_DEATH_APRIL.get() : SummonerSoundEvents.SUMMON_DEATH.get();
     }
+
+    @Override
+    protected abstract SoundEvent getHurtSound(DamageSource damageSource);
+
+    @Nullable
+    @Override
+    protected abstract SoundEvent getAmbientSound();
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {

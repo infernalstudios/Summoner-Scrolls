@@ -42,7 +42,9 @@ public interface ISummon {
 
     default void spawnSummonParticles(RandomSource random, LevelAccessor level, double x, double y, double z, float intensity, double intensity2, double intensity3) {
         for (float i = 0; i < Mth.TWO_PI; i += (float) (generateBoundedFloat(random, intensity) + intensity3)) {
-            level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * intensity2, y, z + Mth.sin(i) * intensity2, 0.0, 0.0, 0.0);
+            if (random.nextInt(3) == 1) {
+                level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * intensity2, y, z + Mth.sin(i) * intensity2, 0.0, 0.0, 0.0);
+            }
         }
     }
 

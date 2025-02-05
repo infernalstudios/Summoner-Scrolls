@@ -3,12 +3,11 @@ package com.github.teamfusion.summonerscrolls.common.entity.summons;
 import com.github.teamfusion.summonerscrolls.common.entity.base.ISummon;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerSoundEvents;
-import com.google.common.base.Suppliers;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
@@ -26,26 +25,32 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//import javax.annotation.ParametersAreNonnullByDefault;
+import java.time.LocalDate;
 import java.util.UUID;
-import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
-//@ParametersAreNonnullByDefault
 public class BeeSummon extends Bee implements ISummon, NeutralMob {
-    public static final Supplier<EntityType<BeeSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(BeeSummon::new, MobCategory.MISC).sized(0.7F, 0.6F).clientTrackingRange(8).build("bee_summon"));
 
-    public static UUID ownerUUID;
+    private UUID ownerUUID;
     private int despawnDelay;
 
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(BeeSummon.class, EntityDataSerializers.INT);
+
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    @Nullable private UUID persistentAngerTarget;
+
+    @Nullable
+    protected UUID persistentAngerTarget;
 
     public BeeSummon(EntityType<? extends Bee> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public MobType getMobType() {
@@ -59,139 +64,6 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
         goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
     }
 
-    @Override
-    public LivingEntity getSummon() {
-        return this;
-    }
-
-    @Override
-    public LivingEntity getOwner() {
-        try {
-            UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
-        } catch (IllegalArgumentException var2) {
-            return null;
-        }
-    }
-
-    @Override
-    public UUID getOwnerUUID() {
-        return ownerUUID;
-    }
-
-    @Override
-    public void setOwnerUUID(UUID uUID) {
-        ownerUUID = uUID;
-    }
-
-    @Override
-    public boolean isBaby() {
-        return false;
-    }
-
-    @Override
-    public boolean hurt(DamageSource damageSource, float f) {
-
-        if (damageSource == DamageSource.OUT_OF_WORLD) {
-            return super.hurt(damageSource, f);
-        }
-
-        if (damageSource.getEntity() == this.getOwner()) {
-            return false;
-        }
-        if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
-            return false;
-        }
-        return super.hurt(damageSource, f);
-    }
-
-    @Override
-    public void push(Entity entity) {
-        if (entity == this.getOwner()) {
-            return;
-        }
-        super.push(entity);
-    }
-
-    @Override
-    protected void doPush(Entity entity) {
-        if (entity == this.getOwner()) {
-            return;
-        }
-        super.doPush(entity);
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
-        if (player.isShiftKeyDown()) {
-            this.kill();
-            return InteractionResult.SUCCESS;
-        }
-        return super.mobInteract(player, interactionHand);
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SummonerSoundEvents.SUMMON_DEATH.get();
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("DespawnDelay", this.despawnDelay);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        if (compoundTag.contains("DespawnDelay", 99)) {
-            this.despawnDelay = compoundTag.getInt("DespawnDelay");
-        }
-    }
-
-    @Override
-    protected void dropEquipment() {
-        super.dropEquipment();
-        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.OFFHAND);
-        if (!itemstack.isEmpty()) {
-            this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-        }
-    }
-
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SummonerItems.INVISIBLE_SUMMON_LIGHT.get()));
-        super.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        this.maybeDespawn();
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-    }
-
-    @Override
-    public void setDespawnDelay(int i) {
-        this.despawnDelay = i;
-    }
-
-    @Override
-    public int getDespawnDelay() {
-        return this.despawnDelay;
-    }
-
-    @Override
-    public boolean isEnemy(LivingEntity livingEntity) {
-        return ISummon.super.isEnemy(livingEntity);
-    }
-
-    private void maybeDespawn() {
-        if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
-            this.kill();
-        }
-    }
-
     public static AttributeSupplier.Builder createSummonAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 35.0)
@@ -203,37 +75,138 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
     }
 
     @Override
-    public boolean isAngryAt(LivingEntity livingEntity) {
-        return this.isSummonAngryAt(livingEntity);
+    public LivingEntity getSummon() {
+        return this;
     }
 
     @Override
-    protected boolean isSunBurnTick() {
+    public LivingEntity getOwner() {
+        try {
+            UUID uuid = this.getOwnerUUID();
+            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public UUID getOwnerUUID() {
+        return ownerUUID;
+    }
+
+    @Override
+    public void setOwnerUUID(UUID uuid) {
+        ownerUUID = uuid;
+    }
+
+    @Override
+    public boolean hurt(DamageSource damageSource, float amount) {
+        if (damageSource == DamageSource.OUT_OF_WORLD) {
+            return super.hurt(damageSource, amount);
+        }
+
+        Entity directEntity = damageSource.getEntity();
+        if (directEntity == this.getOwner()) {
+            return false;
+        }
+        if (directEntity instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
+            return false;
+        }
+        return super.hurt(damageSource, amount);
+    }
+
+    @Override
+    public void push(Entity entity) {
+        if (entity == this.getOwner()) {
+            return;
+        }
+        super.push(entity);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.isShiftKeyDown()) {
+            this.kill();
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        LocalDate today = LocalDate.now();
+        boolean aprilFools = today.getMonthValue() == 4 && today.getDayOfMonth() == 1;
+        return aprilFools ? SummonerSoundEvents.SUMMON_DEATH_APRIL.get() : SummonerSoundEvents.SUMMON_DEATH.get();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+
+        tag.putInt("DespawnDelay", this.despawnDelay);
+
+        if (this.getOwnerUUID() != null) {
+            tag.putUUID("Owner", this.getOwnerUUID());
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains("DespawnDelay", 99)) {
+            this.despawnDelay = tag.getInt("DespawnDelay");
+        }
+
+        UUID uuid;
+        if (tag.hasUUID("Owner")) {
+            uuid = tag.getUUID("Owner");
+        } else {
+            String s = tag.getString("Owner");
+            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+        }
+
+        if (uuid != null) {
+            this.setOwnerUUID(uuid);
+        }
+    }
+
+    @Override
+    public boolean canPickUpLoot() {
         return false;
     }
 
-//    float time = 0;
     @Override
-    public void tick() {
-//        if (this.isSumoningCooldown()) {
-//            time--;
-//            this.setDeltaMovement(0,0,0);
-//            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-//            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-//        }
-        super.tick();
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SummonerItems.INVISIBLE_SUMMON_LIGHT.get()));
     }
 
-    public boolean isSumoningCooldown() {
-        return true;
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (--this.despawnDelay <= 0) {
+            this.kill();
+        }
+        if (this.tickCount % 2 == 0) {
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        }
     }
 
-//    @Nullable
-//    @Override
-//    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-//        time = 75;
-//        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
-//    }
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        this.discard();
+    }
+
+    @Override
+    public void setDespawnDelay(int delay) {
+        this.despawnDelay = Math.max(1, delay);
+    }
+
+    @Override
+    public int getDespawnDelay() {
+        return this.despawnDelay;
+    }
 
     @Override
     public int getRemainingPersistentAngerTime() {
@@ -241,8 +214,8 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int i) {
-        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    public void setRemainingPersistentAngerTime(int time) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, time);
     }
 
     @Nullable
@@ -252,17 +225,12 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
     }
 
     @Override
-    public void setPersistentAngerTarget(@Nullable UUID uUID) {
-        this.persistentAngerTarget = uUID;
+    public void setPersistentAngerTarget(@Nullable UUID uuid) {
+        this.persistentAngerTarget = uuid;
     }
 
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 }

@@ -6,7 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "CreeperAccessor",
+    "ItemStackMixin",
     "ItemPropertiesAccessor",
     "PlayerMixin"
   ],

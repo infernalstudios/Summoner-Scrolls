@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls.client.render.entity.renderer.ende
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.client.render.entity.layers.SummonGlowLayer;
+import com.github.teamfusion.summonerscrolls.common.entity.summons.enderman.ShulkermanSummon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -18,27 +19,15 @@ import org.jetbrains.annotations.Nullable;
 //@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
-public class ShulkermanSummonRenderer extends EndermanRenderer {
+public class ShulkermanSummonRenderer extends EndermanSummonRenderer<ShulkermanSummon> {
     public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/shulkerman_summon.png");
 
     public ShulkermanSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
-    }
-
-    @Nullable
-    @Override
-    protected RenderType getRenderType(EnderMan summon, boolean bl, boolean bl2, boolean bl3) {
-        return RenderType.entityTranslucent(getTextureLocation(summon));
     }
 
     @Override
-    protected int getBlockLightLevel(EnderMan summon, BlockPos blockPos) {
-        return 10;
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(EnderMan summon) {
+    public ResourceLocation getTextureLocation(ShulkermanSummon summon) {
         return SUMMON_LOCATION;
     }
 }

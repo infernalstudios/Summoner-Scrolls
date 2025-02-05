@@ -54,6 +54,16 @@ public class SkeletonSummon extends BaseSummonedEntity implements RangedAttackMo
         this.reassessWeaponGoal();
     }
 
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.SKELETON_HURT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return SoundEvents.SKELETON_AMBIENT;
+    }
+
     public void reassessWeaponGoal() {
         if (!this.level.isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);

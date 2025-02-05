@@ -1,12 +1,16 @@
 package com.github.teamfusion.summonerscrolls.common.entity.summons.zombie;
 
 import com.github.teamfusion.summonerscrolls.common.entity.base.BaseSummonedEntity;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class ZombieSummon extends BaseSummonedEntity {
 
@@ -18,6 +22,16 @@ public class ZombieSummon extends BaseSummonedEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.ZOMBIE_HURT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return SoundEvents.ZOMBIE_AMBIENT;
     }
 
     public static AttributeSupplier.Builder getAttrubutes() {

@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.common.entity.summons.CreeperSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.summons.creeper.CreeperSummon;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

@@ -8,8 +8,8 @@ import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.Creep
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.enderman.EndermanSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.zombie.HuskSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.IronGolemSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.PiglinBruteSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.PiglinSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.piglin.PiglinBruteSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.piglin.PiglinSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.enderman.ShulkermanSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.skeleton.SkeletonSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.spider.SpiderSummonRenderer;
@@ -29,7 +29,7 @@ import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
-public class SSClient {
+public class SummonerClient {
     public static void commonClientInitialize() {
         SummonerScrolls.LOGGER.info("Initializing {}-CLIENT", SummonerScrolls.MOD_NAME);
 
@@ -41,18 +41,25 @@ public class SSClient {
         RenderRegistry.renderer(SummonerEntityTypes.SKELETON_SUMMON, SkeletonSummonRenderer::new);
         RenderRegistry.renderer(SummonerEntityTypes.STRAY_SUMMON, StraySummonRenderer::new);
 
+        // Spiders
         RenderRegistry.renderer(SummonerEntityTypes.SPIDER_SUMMON, SpiderSummonRenderer::new);
         RenderRegistry.renderer(SummonerEntityTypes.SPIDER_JOCKEY_SUMMON, SpiderSummonRenderer::new);
-        RenderRegistry.renderer(SummonerEntityTypes.BEE_SUMMON, BeeSummonRenderer::new);
-
         RenderRegistry.renderer(SummonerEntityTypes.CAVE_SPIDER_SUMMON, CaveSpiderSummonRenderer::new);
-        RenderRegistry.renderer(SummonerEntityTypes.ENDERMAN_SUMMON, EndermanSummonRenderer::new);
-        RenderRegistry.renderer(SummonerEntityTypes.PIGLIN_SUMMON, PiglinSummonRenderer::new);
 
+        // Endermen
+        RenderRegistry.renderer(SummonerEntityTypes.ENDERMAN_SUMMON, EndermanSummonRenderer::new);
+        RenderRegistry.renderer(SummonerEntityTypes.SHULKERMAN_SUMMON, ShulkermanSummonRenderer::new);
+
+        // Piglins
+        RenderRegistry.renderer(SummonerEntityTypes.PIGLIN_SUMMON, PiglinSummonRenderer::new);
+        RenderRegistry.renderer(SummonerEntityTypes.PIGLIN_BRUTE_SUMMON, PiglinBruteSummonRenderer::new);
+
+        // Creepers
         RenderRegistry.renderer(SummonerEntityTypes.CREEPER_SUMMON, CreeperSummonRenderer::new);
         RenderRegistry.renderer(SummonerEntityTypes.CHARGED_CREEPER_SUMMON, CreeperSummonRenderer::new);
-        RenderRegistry.renderer(SummonerEntityTypes.PIGLIN_BRUTE_SUMMON, PiglinBruteSummonRenderer::new);
-        RenderRegistry.renderer(SummonerEntityTypes.SHULKERMAN_SUMMON, ShulkermanSummonRenderer::new);
+
+        // Other
+        RenderRegistry.renderer(SummonerEntityTypes.BEE_SUMMON, BeeSummonRenderer::new);
         RenderRegistry.renderer(SummonerEntityTypes.IRON_GOLEM_SUMMON, IronGolemSummonRenderer::new);
 
         RenderRegistry.layerDefinition(ZombieSummonModel.LAYER_LOCATION, ZombieSummonModel.createBodyLayer());

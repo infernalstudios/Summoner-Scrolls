@@ -3,13 +3,15 @@ package com.github.teamfusion.summonerscrolls.forge;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerEvents;
+import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -22,39 +24,49 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = SummonerScrolls.MOD_ID)
 public class CommonEvents {
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    static void anvilUpdate(AnvilUpdateEvent event) {
+    public static void anvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         Item leftItem = left.getItem();
         ItemStack right = event.getRight();
         Item rightItem = right.getItem();
 
-        if (rightItem instanceof ScrollItem scrollItem) {
-            Enchantment enchantment = scrollItem.getEnchantment().get();
+        CompoundTag leftNbt = left.getOrCreateTag();
+        if (rightItem instanceof ScrollItem && !ScrollUtil.hasScrollProperties(leftNbt)) {
 
-            if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
+            if (leftItem instanceof TieredItem) {
 
-                boolean canEnchant = true;
-                for (Enchantment enchantment2 : enchantments.keySet()) {
-                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
-                        canEnchant = false;
-                        break;
+                ItemStack copy = left.copy();
+                CompoundTag scrollTag = right.getTag();
+
+                if (scrollTag != null) {
+                    CompoundTag resultTag = copy.getOrCreateTag();
+                    resultTag.merge(scrollTag);
+
+                    CompoundTag displayTag = copy.getOrCreateTagElement("display");
+                    ListTag lore = new ListTag();
+
+                    if (resultTag.getInt("count") <= 1) {
+                        lore.add(StringTag.valueOf(Component.Serializer.toJson(Component.translatable(
+                                "item.summonerscrolls.summoner_scroll_desc_a", ScrollUtil.getEntityType(resultTag).getDescription()
+                        ))));
                     }
+                    else {
+                        lore.add(StringTag.valueOf(Component.Serializer.toJson(Component.translatable(
+                                "item.summonerscrolls.summoner_scroll_desc_b", resultTag.getInt("count"),
+                                ScrollUtil.getEntityType(resultTag).getDescription()
+                        ))));
+                    }
+
+                    displayTag.put("Lore", lore);
+                }
+                if (event.getName() != null && !event.getName().isEmpty()) {
+                    copy.setHoverName(Component.literal(event.getName()));
                 }
 
-                if (canEnchant) {
-                    enchantments.put(enchantment, 1);
-                    ItemStack copy = left.copy();
-                    EnchantmentHelper.setEnchantments(enchantments, copy);
-                    String name = event.getName();
-                    if (name != null && !name.isEmpty()) {
-                        copy.setHoverName(Component.literal(name));
-                    }
-
-                    event.setOutput(copy);
-                    event.setCost(8);
-                }
+                event.setOutput(copy);
+                event.setCost(8);
             }
         }
     }

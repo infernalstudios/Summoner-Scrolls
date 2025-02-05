@@ -12,7 +12,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class SSTrades {
+public class SummonerTrades {
     public static void init() {
         List<Supplier<Item>> items = ImmutableList.of(SummonerItems.ZOMBIE_SCROLL, SummonerItems.SPIDER_SCROLL, SummonerItems.SKELETON_SCROLL, SummonerItems.BEE_SCROLL);
 

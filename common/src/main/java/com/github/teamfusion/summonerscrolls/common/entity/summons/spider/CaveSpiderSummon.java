@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity.summons.spider;
 
+import com.github.teamfusion.summonerscrolls.common.entity.base.BaseSummonedEntity;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
@@ -24,13 +25,10 @@ import org.jetbrains.annotations.Nullable;
 //import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
-//@ParametersAreNonnullByDefault
 public class CaveSpiderSummon extends SpiderSummon {
-    public static final Supplier<EntityType<CaveSpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(CaveSpiderSummon::new, MobCategory.MISC).sized(0.7F, 0.5F).clientTrackingRange(8).build("cave_spider_summon"));
 
-    public CaveSpiderSummon(EntityType<? extends CaveSpiderSummon> summon, Level level) {
-        super(summon, level, false);
+    public CaveSpiderSummon(EntityType<? extends BaseSummonedEntity> summon, Level level) {
+        super(summon, level);
     }
 
     @Override
@@ -55,26 +53,11 @@ public class CaveSpiderSummon extends SpiderSummon {
         }
     }
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        return spawnGroupData;
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
-        return 0.45F;
-    }
-
     public static AttributeSupplier.Builder createSummonAttributes() {
         return SpiderSummon.createSummonAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0)
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.MAX_HEALTH, 12.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.45);
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
     }
 }

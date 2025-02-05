@@ -1,4 +1,4 @@
-package com.github.teamfusion.summonerscrolls.client.render.entity.renderer;
+package com.github.teamfusion.summonerscrolls.client.render.entity.renderer.piglin;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.client.render.entity.layers.SummonGlowLayer;
@@ -17,10 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import org.jetbrains.annotations.Nullable;
 
-//import javax.annotation.ParametersAreNonnullByDefault;
-
-//@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class PiglinSummonRenderer extends PiglinRenderer {
     public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/piglin_summon.png");
