@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "summonerscrolls:enderman_summoner_scroll"
+  },
+  "addition": {
+    "item": "summonerscrolls:enhancement_scroll"
+  },
+  "result": {
+    "item": "summonerscrolls:shulkerman_summoner_scroll"
+  }
+}

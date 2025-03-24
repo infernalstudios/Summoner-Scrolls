@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "summonerscrolls:zombie_summoner_scroll"
+  },
+  "addition": {
+    "item": "summonerscrolls:enhancement_scroll"
+  },
+  "result": {
+    "item": "summonerscrolls:husk_summoner_scroll"
+  }
+}

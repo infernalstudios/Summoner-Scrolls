@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "summonerscrolls:creeper_summoner_scroll"
+  },
+  "addition": {
+    "item": "summonerscrolls:enhancement_scroll"
+  },
+  "result": {
+    "item": "summonerscrolls:charged_creeper_summoner_scroll"
+  }
+}

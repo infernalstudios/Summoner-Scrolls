@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "summonerscrolls:spider_summoner_scroll"
+  },
+  "addition": {
+    "item": "summonerscrolls:skeleton_summoner_scroll"
+  },
+  "result": {
+    "item": "summonerscrolls:spider_jockey_summoner_scroll"
+  }
+}

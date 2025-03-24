@@ -1,0 +1,19 @@
+accessWidener   v2  named
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
+
+accessible method net/minecraft/tags/EntityTypeTags create (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+accessible method net/minecraft/client/renderer/entity/PiglinRenderer createModel (Lnet/minecraft/client/model/geom/EntityModelSet;Lnet/minecraft/client/model/geom/ModelLayerLocation;Z)Lnet/minecraft/client/model/PiglinModel;
+accessible method net/minecraft/world/entity/ai/memory/MemoryModuleType register (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/entity/ai/memory/MemoryModuleType;
+accessible method net/minecraft/world/entity/ai/memory/MemoryModuleType register (Ljava/lang/String;)Lnet/minecraft/world/entity/ai/memory/MemoryModuleType;
+
+accessible field net/minecraft/world/inventory/AnvilMenu cost Lnet/minecraft/world/inventory/DataSlot;
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal seeTime I
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal attackRadiusSqr F
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal strafingTime I
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal speedModifier D
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal strafingClockwise Z
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal strafingBackwards Z
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal attackTime I
+accessible field net/minecraft/world/entity/ai/goal/RangedBowAttackGoal attackIntervalMin I
+accessible field net/minecraft/world/entity/monster/AbstractSkeleton meleeGoal Lnet/minecraft/world/entity/ai/goal/MeleeAttackGoal;

@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.github.teamfusion.summonerscrolls.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "AnvilMenuMixin",
+    "ItemPropertiesAccessor",
+    "ItemStackMixin",
+    "PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

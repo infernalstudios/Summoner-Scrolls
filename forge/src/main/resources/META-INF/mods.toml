@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[40,)"
+issueTrackerURL = "https://github.com/teamfusion/Summoner-Scrolls/issues"
+license = "MIT (Code); ARR (Assets)"
+
+[[mods]]
+modId = "summonerscrolls"
+version = "${version}"
+displayName = "Summoner Scrolls"
+authors = "Team Fusion"
+description = '''
+Bringing more Magic into Minecraft!
+'''
+logoFile = "logo.png"
+
+[[dependencies.summonerscrolls]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.summonerscrolls]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.2,)"
+ordering = "NONE"
+side = "BOTH"

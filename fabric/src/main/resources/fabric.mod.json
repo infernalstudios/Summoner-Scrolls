@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+
+  "id": "summonerscrolls",
+  "version": "${version}",
+  "license": [
+    "MIT (Code)",
+    "ARR (Assets)"
+  ],
+
+  "name": "Summoner Scrolls",
+  "icon": "assets/summonerscrolls/icon.png",
+  "description": "Bringing more Magic into Minecraft!",
+
+  "authors": [
+    "Team Fusion"
+  ],
+  "contributors": [
+    "StevenPlayzz",
+    "Nekomaster",
+    "Jonah_Fuses",
+    "Deadlydiamond98"
+  ],
+  "contact": {
+    "sources": "https://github.com/teamfusion/Summoner-Scrolls",
+    "issues": "https://github.com/teamfusion/Summoner-Scrolls/issues"
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabric"
+    ]
+  },
+  "mixins": [
+    "summonerscrolls.mixins.json",
+    "summonerscrolls-common.mixins.json"
+  ],
+
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.20",
+    "fabricloader": ">=0.14",
+    "fabric": ">=0.58"
+  }
+}

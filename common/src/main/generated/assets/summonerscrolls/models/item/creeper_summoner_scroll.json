@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "summonerscrolls:item/creeper_summoner_scroll"
+  }
+}

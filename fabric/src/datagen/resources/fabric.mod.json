@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "summonerscrolls-datagen",
+  "name": "Summoner Scrolls Data Generation",
+  "version": "${version}",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-datagen": [ "com.github.teamfusion.summonerscrolls.datagen.SummonerScrollsDataGenerator" ]
+  }
+}
