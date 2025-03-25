@@ -32,7 +32,7 @@ public class PiglinBruteSummon extends PiglinSummon {
 
     @Override
     public ItemStack createSpawnWeapon() {
-        return new ItemStack(Items.GOLDEN_AXE);
+        return new ItemStack(SummonerItems.SUMMON_AXE.get());
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {

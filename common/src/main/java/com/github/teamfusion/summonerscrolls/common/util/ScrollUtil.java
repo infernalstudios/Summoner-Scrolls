@@ -3,7 +3,6 @@ package com.github.teamfusion.summonerscrolls.common.util;
 import com.github.teamfusion.summonerscrolls.common.config.ConfigEntries;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -12,13 +11,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class ScrollUtil {
 
@@ -42,13 +38,32 @@ public class ScrollUtil {
         return nbt.contains("summon") && nbt.contains("count") && nbt.contains("cost") && nbt.contains("damageAmount");
     }
 
-    public static boolean onAnvilChange(AnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
+    public static void removeScrollFromItem(ItemStack stack) {
+        Item enhancedItem = stack.getItem();
+
+        if (enhancedItem instanceof TieredItem) {
+            stack.removeTagKey("summon");
+            stack.removeTagKey("count");
+            stack.removeTagKey("cost");
+            stack.removeTagKey("damageAmount");
+
+            CompoundTag displayTag = stack.getOrCreateTagElement("display");
+            ListTag loreList = displayTag.getList("Lore", 8);
+
+            loreList.remove(loreList.size() - 1);
+            loreList.remove(loreList.size() - 1);
+
+            stack.addTagElement("Lore", loreList);
+        }
+    }
+
+    public static boolean applyScrollToItemInAnvil(AnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
 
         CompoundTag leftNbt = left.getOrCreateTag();
 
-        if (rightItem instanceof ScrollItem && !ScrollUtil.hasScrollProperties(leftNbt)) {
+        if (rightItem instanceof ScrollItem && !hasScrollProperties(leftNbt)) {
 
             if (leftItem instanceof TieredItem) {
 

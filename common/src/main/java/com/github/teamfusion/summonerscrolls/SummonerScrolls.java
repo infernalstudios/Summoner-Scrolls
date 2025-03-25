@@ -4,16 +4,13 @@ import com.github.teamfusion.summonerscrolls.client.SummonerClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.config.ModConfig;
 import com.github.teamfusion.summonerscrolls.common.entity.SummonerEntityTypes;
+import com.github.teamfusion.summonerscrolls.common.registry.SummonerRecipes;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerCreativeTab;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerSoundEvents;
-import com.github.teamfusion.summonerscrolls.common.util.loot.SummonerLootTables;
 import com.github.teamfusion.summonerscrolls.common.util.trade.SummonerTrades;
-import com.github.teamfusion.summonerscrolls.platform.Environment;
 import com.github.teamfusion.summonerscrolls.platform.ModInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +33,15 @@ public class SummonerScrolls {
         SummonerEntityTypes.postRegister();
 
         SummonerScrollsParticles.init();
-        SummonerLootTables.init();
         SummonerTrades.init();
+        SummonerRecipes.registerRecipes();
+    }
+
+    public static class LootTables {
+        public static final ResourceLocation OVERWORLD = new ResourceLocation(SummonerScrolls.MOD_ID, "chests/overworld_scrolls");
+        public static final ResourceLocation RARE_OVERWORLD = new ResourceLocation(SummonerScrolls.MOD_ID, "chests/rare_overworld_scrolls");
+        public static final ResourceLocation NETHER = new ResourceLocation(SummonerScrolls.MOD_ID, "chests/nether_scrolls");
+        public static final ResourceLocation END = new ResourceLocation(SummonerScrolls.MOD_ID, "chests/end_scrolls");
+        public static final ResourceLocation UPGRADE = new ResourceLocation(SummonerScrolls.MOD_ID, "chests/upgrade_scroll");
     }
 }

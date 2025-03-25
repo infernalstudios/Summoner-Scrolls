@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.client;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.client.render.entity.models.PiglinSummonModel;
 import com.github.teamfusion.summonerscrolls.client.render.entity.models.ZombieSummonModel;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.BeeSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.SummonerArrowRenderer;
@@ -66,6 +67,7 @@ public class SummonerClient {
 
         RenderRegistry.renderer(SummonerEntityTypes.SUMMONER_ARROW, SummonerArrowRenderer::new);
 
+        RenderRegistry.layerDefinition(PiglinSummonModel.LAYER_LOCATION, PiglinSummonModel.createMesh());
         RenderRegistry.layerDefinition(ZombieSummonModel.LAYER_LOCATION, ZombieSummonModel.createBodyLayer());
         RenderRegistry.layerDefinition(ZombieSummonModel.LAYER_LOCATION_INNER_ARMOR, ZombieSummonModel.createInnerArmorLayer());
         RenderRegistry.layerDefinition(ZombieSummonModel.LAYER_LOCATION_OUTER_ARMOR, ZombieSummonModel.createOuterArmorLayer());

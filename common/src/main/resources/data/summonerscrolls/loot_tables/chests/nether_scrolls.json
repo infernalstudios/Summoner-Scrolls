@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 0,
+        "min": 1
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:piglin_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:piglin_brute_summoner_scroll"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "summonerscrolls:chests/nether_scrolls"
+}

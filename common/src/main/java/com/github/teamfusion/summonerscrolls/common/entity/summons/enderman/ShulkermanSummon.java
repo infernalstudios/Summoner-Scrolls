@@ -49,7 +49,7 @@ public class ShulkermanSummon extends EndermanSummon {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(2, new ShulkermanAttackGoal());
+        goalSelector.addGoal(3, new ShulkermanAttackGoal());
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {

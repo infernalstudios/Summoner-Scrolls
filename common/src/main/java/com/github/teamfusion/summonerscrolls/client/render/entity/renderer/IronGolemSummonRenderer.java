@@ -13,10 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.IronGolem;
 import org.jetbrains.annotations.Nullable;
 
-//import javax.annotation.ParametersAreNonnullByDefault;
-
-//@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class IronGolemSummonRenderer extends IronGolemRenderer {
     public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/iron_golem_summon.png");

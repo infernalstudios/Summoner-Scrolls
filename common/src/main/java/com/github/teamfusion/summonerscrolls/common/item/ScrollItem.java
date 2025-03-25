@@ -6,7 +6,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -35,7 +37,24 @@ public class ScrollItem<T extends Entity> extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
-        list.add((Component.translatable("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(this.cost)).withStyle(ChatFormatting.AQUA));
+
+        Component descEntity;
+        if (this.count <= 1) {
+            descEntity = Component.translatable(
+                    "item.summonerscrolls.summoner_scroll_desc_a", this.entitySupplier.get().getDescription()
+            );
+        }
+        else {
+            descEntity = Component.translatable(
+                    "item.summonerscrolls.summoner_scroll_desc_b", this.count,
+                    this.entitySupplier.get().getDescription()
+            );
+        }
+
+        list.add(descEntity.copy().withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
+
+        list.add((Component.translatable("item.summonerscrolls.summoner_scroll_desc_c", this.cost))
+                .withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
 
         CompoundTag nbt = stack.getOrCreateTag();
         nbt.putString("summon", BuiltInRegistries.ENTITY_TYPE.getKey(this.entitySupplier.get()).toString());

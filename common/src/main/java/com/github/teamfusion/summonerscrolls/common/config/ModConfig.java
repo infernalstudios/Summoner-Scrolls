@@ -116,65 +116,65 @@ public class ModConfig {
               
                 // Summon costs
                 "zombie": {
-                  "xp_cost": 10,
+                  "xp_cost": 1,
                   "durability_cost": 1
                 },
                 "spider": {
-                  "xp_cost": 10,
+                  "xp_cost": 1,
                   "durability_cost": 1
                 },
                 "spider_jockey": {
-                  "xp_cost": 10,
+                  "xp_cost": 3,
                   "durability_cost": 1
                 },
                 "skeleton": {
-                  "xp_cost": 15,
+                  "xp_cost": 2,
                   "durability_cost": 2
                 },
                 "bee": {
-                  "xp_cost": 15,
+                  "xp_cost": 3,
                   "durability_cost": 5
                 },
                 
                 "husk": {
-                  "xp_cost": 20,
+                  "xp_cost": 2,
                   "durability_cost": 5
                 },
                 "stray": {
-                  "xp_cost": 20,
+                  "xp_cost": 4,
                   "durability_cost": 5
                 },
                 "cave_spider": {
-                  "xp_cost": 15,
+                  "xp_cost": 3,
                   "durability_cost": 5
                 },
                 "enderman": {
-                  "xp_cost": 30,
+                  "xp_cost": 4,
                   "durability_cost": 5
                 },
                 "piglin": {
-                  "xp_cost": 30,
+                  "xp_cost": 3,
                   "durability_cost": 10
                 },
                 
                 "creeper": {
-                  "xp_cost": 40,
+                  "xp_cost": 4,
                   "durability_cost": 10
                 },
                 "piglin_brute": {
-                  "xp_cost": 50,
+                  "xp_cost": 5,
                   "durability_cost": 10
                 },
                 "shulkerman": {
-                  "xp_cost": 40,
+                  "xp_cost": 5,
                   "durability_cost": 10
                 },
                 "iron_golem": {
-                  "xp_cost": 50,
+                  "xp_cost": 5,
                   "durability_cost": 10
                 },
                 "charged_creeper": {
-                  "xp_cost": 60,
+                  "xp_cost": 5,
                   "durability_cost": 15
                 }
               }

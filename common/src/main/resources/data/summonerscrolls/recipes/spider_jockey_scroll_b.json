@@ -1,0 +1,13 @@
+{
+  "type": "summonerscrolls:anvil_scroll",
+  "scroll": {
+    "item": "summonerscrolls:skeleton_summoner_scroll"
+  },
+  "upgrade": {
+    "item": "summonerscrolls:spider_summoner_scroll"
+  },
+  "result": {
+    "item": "summonerscrolls:spider_jockey_summoner_scroll"
+  },
+  "levelcost": 1
+}

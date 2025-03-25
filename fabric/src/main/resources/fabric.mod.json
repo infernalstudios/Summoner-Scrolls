@@ -10,20 +10,20 @@
 
   "name": "Summoner Scrolls",
   "icon": "assets/summonerscrolls/icon.png",
-  "description": "Bringing more Magic into Minecraft!",
+  "description": "Bringing more Magic into Minecraft via summons!",
 
   "authors": [
-    "Team Fusion"
+    "Nekomaster",
+    "Deadlydiamond98",
+    "Lyof",
+    "StevenPlayzz",
+    "Jonah_Fuses"
   ],
   "contributors": [
-    "StevenPlayzz",
-    "Nekomaster",
-    "Jonah_Fuses",
-    "Deadlydiamond98"
   ],
   "contact": {
-    "sources": "https://github.com/teamfusion/Summoner-Scrolls",
-    "issues": "https://github.com/teamfusion/Summoner-Scrolls/issues"
+    "sources": "https://github.com/infernalstudios/Summoner-Scrolls",
+    "issues": "https://github.com/infernalstudios/Summoner-Scrolls/issues"
   },
 
   "environment": "*",

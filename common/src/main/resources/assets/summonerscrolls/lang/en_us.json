@@ -42,7 +42,6 @@
   "item.summonerscrolls.iron_golem_summoner_scroll": "Iron Golem Summoner Scroll",
   "item.summonerscrolls.piglin_brute_summoner_scroll": "Piglin Brute Summoner Scroll",
   "item.summonerscrolls.piglin_summoner_scroll": "Piglin Summoner Scroll",
-  "item.summonerscrolls.scroll.xp_warning": "Required XP: ",
   "item.summonerscrolls.shulkerman_summoner_scroll": "Shulkerman Summoner Scroll",
   "item.summonerscrolls.skeleton_summoner_scroll": "Skeleton Summoner Scroll",
   "item.summonerscrolls.spider_jockey_summoner_scroll": "Spider Jockey Scroll",
@@ -59,9 +58,9 @@
   "item.summonerscrolls.summon_sword": "Summon Sword",
   "item.summonerscrolls.zombie_summoner_scroll": "Zombie Summoner Scroll",
 
-  "item.summonerscrolls.summoner_scroll_desc_a": "Spawns a %s Summon on right-click",
-  "item.summonerscrolls.summoner_scroll_desc_b": "Spawns %s %s Summons on right-click",
-  "item.summonerscrolls.summoner_scroll_desc_c": "Costs %s level(s)",
+  "item.summonerscrolls.summoner_scroll_desc_a": "Summons a %s Summon on right-click",
+  "item.summonerscrolls.summoner_scroll_desc_b": "Summons %s %s Summons on right-click",
+  "item.summonerscrolls.summoner_scroll_desc_c": "Level Cost: %s",
 
   "itemGroup.summonerscrolls.scrolls_tab": "Summoner Scrolls",
 

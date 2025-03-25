@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 0,
+        "min": 1
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:zombie_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:spider_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:spider_jockey_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:skeleton_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:bee_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:husk_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:stray_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:cave_spider_summoner_scroll"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "summonerscrolls:creeper_summoner_scroll"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "summonerscrolls:chests/overworld_scrolls"
+}

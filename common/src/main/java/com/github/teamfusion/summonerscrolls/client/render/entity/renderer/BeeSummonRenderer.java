@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Bee;
 import org.jetbrains.annotations.Nullable;
 
-//@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class BeeSummonRenderer extends BeeRenderer {
     public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/bee_summon.png");

@@ -27,11 +27,11 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedCrossbowAttackGoal;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -47,13 +47,12 @@ public class PiglinSummon extends BaseSummonedEntity implements CrossbowAttackMo
     public PiglinSummon(EntityType<? extends BaseSummonedEntity> entityType, Level level) {
         super(entityType, level);
         this.setItemSlot(EquipmentSlot.MAINHAND, createSpawnWeapon());
-    }
 
-    @Override
-    protected void registerGoals() {
-        this.commonGoals(this.targetSelector, this.goalSelector);
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
-        this.goalSelector.addGoal(3, new SummonerRangedCrossbowAttack<>(this, 1.0, 8.0F));
+        if (getMainHandItem().is(SummonerItems.SUMMON_CROSSBOW.get())) {
+            this.goalSelector.addGoal(3, new SummonerRangedCrossbowAttack<>(this, 1.0, 8.0F));
+        } else {
+            this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+        }
     }
 
     @Override
@@ -73,7 +72,7 @@ public class PiglinSummon extends BaseSummonedEntity implements CrossbowAttackMo
     }
 
     public ItemStack createSpawnWeapon() {
-        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(SummonerItems.SUMMON_CROSSBOW.get()) : new ItemStack(Items.GOLDEN_SWORD);
+        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(SummonerItems.SUMMON_CROSSBOW.get()) : new ItemStack(SummonerItems.SUMMON_SWORD.get());
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {
@@ -86,6 +85,17 @@ public class PiglinSummon extends BaseSummonedEntity implements CrossbowAttackMo
     }
 
     @Override
+    public void performCrossbowAttack(LivingEntity livingEntity, float f) {
+        InteractionHand interactionHand = ProjectileUtil.getWeaponHoldingHand(livingEntity, SummonerItems.SUMMON_CROSSBOW.get());
+        ItemStack itemStack = livingEntity.getItemInHand(interactionHand);
+        if (livingEntity.isHolding(SummonerItems.SUMMON_CROSSBOW.get())) {
+            CrossbowItem.performShooting(livingEntity.level(), livingEntity, interactionHand, itemStack, f, (float)(14 - livingEntity.level().getDifficulty().getId() * 4));
+        }
+
+        this.onCrossbowAttackPerformed();
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity livingEntity, float f) {
         this.performCrossbowAttack(this, 1.6F);
     }
@@ -95,9 +105,27 @@ public class PiglinSummon extends BaseSummonedEntity implements CrossbowAttackMo
         this.entityData.set(DATA_IS_CHARGING_CROSSBOW, bl);
     }
 
+    private boolean isChargingCrossbow() {
+        return this.entityData.get(DATA_IS_CHARGING_CROSSBOW);
+    }
+
     @Override
     public void onCrossbowAttackPerformed() {
         this.noActionTime = 0;
+    }
+
+    public PiglinArmPose getArmPose() {
+        if (this.isAggressive() && this.isHoldingMeleeWeapon()) {
+            return PiglinArmPose.ATTACKING_WITH_MELEE_WEAPON;
+        } else if (this.isChargingCrossbow()) {
+            return PiglinArmPose.CROSSBOW_CHARGE;
+        } else {
+            return this.isAggressive() && this.isHolding(SummonerItems.SUMMON_CROSSBOW.get()) ? PiglinArmPose.CROSSBOW_HOLD : PiglinArmPose.DEFAULT;
+        }
+    }
+
+    protected boolean isHoldingMeleeWeapon() {
+        return this.getMainHandItem().getItem() instanceof TieredItem;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.github.teamfusion.summonerscrolls.common.entity.base.goal;
 
+import com.github.teamfusion.summonerscrolls.common.item.SummonerCrossBow;
+import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +41,7 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
     }
 
     private boolean isHoldingCrossbow() {
-        return ((LivingEntity)this.mob).isHolding(Items.CROSSBOW);
+        return ((LivingEntity)this.mob).isHolding(SummonerItems.SUMMON_CROSSBOW.get());
     }
 
     @Override
@@ -59,8 +61,8 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
         this.seeTime = 0;
         if (((LivingEntity)this.mob).isUsingItem()) {
             ((LivingEntity)this.mob).stopUsingItem();
-            ((CrossbowAttackMob)this.mob).setChargingCrossbow(false);
-            CrossbowItem.setCharged(((LivingEntity)this.mob).getUseItem(), false);
+            this.mob.setChargingCrossbow(false);
+            SummonerCrossBow.setCharged(((LivingEntity)this.mob).getUseItem(), false);
         }
     }
 
@@ -98,7 +100,7 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
         ((Mob)this.mob).getLookControl().setLookAt(livingEntity, 30.0f, 30.0f);
         if (this.crossbowState == CrossbowState.UNCHARGED) {
             if (!bl3) {
-                ((LivingEntity)this.mob).startUsingItem(ProjectileUtil.getWeaponHoldingHand((LivingEntity) this.mob, Items.CROSSBOW));
+                ((LivingEntity)this.mob).startUsingItem(ProjectileUtil.getWeaponHoldingHand((LivingEntity) this.mob, SummonerItems.SUMMON_CROSSBOW.get()));
                 this.crossbowState = CrossbowState.CHARGING;
                 this.mob.setChargingCrossbow(true);
             }
@@ -106,7 +108,7 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
             if (!((LivingEntity)this.mob).isUsingItem()) {
                 this.crossbowState = CrossbowState.UNCHARGED;
             }
-            if (((LivingEntity)this.mob).getTicksUsingItem() >= CrossbowItem.getChargeDuration(((LivingEntity)this.mob).getUseItem())) {
+            if (((LivingEntity)this.mob).getTicksUsingItem() >= SummonerCrossBow.getChargeDuration(((LivingEntity)this.mob).getUseItem())) {
                 ((LivingEntity)this.mob).releaseUsingItem();
                 this.crossbowState = CrossbowState.CHARGED;
                 this.attackDelay = 20 + ((LivingEntity)this.mob).getRandom().nextInt(20);
@@ -119,8 +121,8 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
             }
         } else if (this.crossbowState == CrossbowState.READY_TO_ATTACK && bl) {
             this.mob.performRangedAttack(livingEntity, 1.0f);
-            ItemStack itemStack2 = ((LivingEntity)this.mob).getItemInHand(ProjectileUtil.getWeaponHoldingHand((LivingEntity) this.mob, Items.CROSSBOW));
-            CrossbowItem.setCharged(itemStack2, false);
+            ItemStack itemStack2 = ((LivingEntity)this.mob).getItemInHand(ProjectileUtil.getWeaponHoldingHand((LivingEntity) this.mob, SummonerItems.SUMMON_CROSSBOW.get()));
+            SummonerCrossBow.setCharged(itemStack2, false);
             this.crossbowState = CrossbowState.UNCHARGED;
         }
     }
@@ -129,7 +131,7 @@ public class SummonerRangedCrossbowAttack<T extends CrossbowAttackMob> extends G
         return this.crossbowState == CrossbowState.UNCHARGED;
     }
 
-    static enum CrossbowState {
+    enum CrossbowState {
         UNCHARGED,
         CHARGING,
         CHARGED,

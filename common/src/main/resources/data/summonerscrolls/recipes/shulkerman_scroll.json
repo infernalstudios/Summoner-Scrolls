@@ -1,12 +1,13 @@
 {
-  "type": "minecraft:smithing",
-  "base": {
+  "type": "summonerscrolls:anvil_scroll",
+  "scroll": {
     "item": "summonerscrolls:enderman_summoner_scroll"
   },
-  "addition": {
+  "upgrade": {
     "item": "summonerscrolls:enhancement_scroll"
   },
   "result": {
     "item": "summonerscrolls:shulkerman_summoner_scroll"
-  }
+  },
+  "levelcost": 1
 }

@@ -21,10 +21,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Creeper;
 import org.jetbrains.annotations.Nullable;
 
-//import javax.annotation.ParametersAreNonnullByDefault;
-
-//@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class CreeperSummonRenderer extends MobRenderer<CreeperSummon, CreeperModel<CreeperSummon>> {
     public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/creeper_summon.png");
