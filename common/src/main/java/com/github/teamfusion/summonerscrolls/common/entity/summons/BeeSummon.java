@@ -3,10 +3,12 @@ package com.github.teamfusion.summonerscrolls.common.entity.summons;
 import com.github.teamfusion.summonerscrolls.common.entity.base.ISummon;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerSoundEvents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -102,6 +104,12 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
 
     @Override
     public boolean hurt(DamageSource damageSource, float amount) {
+
+        // 21
+        if (isStupid(damageSource)) {
+            return false;
+        }
+
         if (damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             return super.hurt(damageSource, amount);
         }
@@ -114,6 +122,13 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
             return false;
         }
         return super.hurt(damageSource, amount);
+    }
+
+    private boolean isStupid(DamageSource damageSource) {
+        return damageSource.is(DamageTypes.IN_WALL) ||
+                damageSource.is(DamageTypes.FALL) ||
+                damageSource.is(DamageTypes.HOT_FLOOR) ||
+                damageSource.is(DamageTypes.CACTUS);
     }
 
     @Override
@@ -180,7 +195,7 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (--this.despawnDelay <= 0) {
+        if (--this.despawnDelay <= 0 || this.getOwner() == null) {
             this.kill();
         }
         if (this.tickCount % 2 == 0) {
@@ -191,6 +206,23 @@ public class BeeSummon extends Bee implements ISummon, NeutralMob {
     @Override
     public void die(DamageSource damageSource) {
         super.die(damageSource);
+
+        if (!this.level().isClientSide()) {
+            int count = 80;
+
+            for (int j = 0; j < count; j++) {
+                Level world = this.level();
+                RandomSource random = world.getRandom();
+
+                float horizontal = random.nextInt(-10, 10) * 0.125f;
+                float vertical = random.nextInt(-8, 8) * 0.125f;
+
+                ((ServerLevel) world).sendParticles(ParticleTypes.POOF,
+                        this.getX(), this.getY() + this.getBbHeight() / 2, this.getZ(), 1,
+                        horizontal, vertical, horizontal, 0);
+            }
+        }
+
         this.discard();
     }
 

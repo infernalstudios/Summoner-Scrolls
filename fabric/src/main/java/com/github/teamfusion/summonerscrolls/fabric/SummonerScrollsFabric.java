@@ -54,6 +54,15 @@ public class SummonerScrollsFabric implements ModInitializer {
                 BuiltInLootTables.BURIED_TREASURE, BuiltInLootTables.SHIPWRECK_TREASURE,
                 BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE);
 
+        addToLootTables(id, table, SummonerScrolls.LootTables.UPGRADE, 0.06f,
+                BuiltInLootTables.SIMPLE_DUNGEON, BuiltInLootTables.ABANDONED_MINESHAFT,
+                BuiltInLootTables.STRONGHOLD_LIBRARY, BuiltInLootTables.DESERT_PYRAMID,
+                BuiltInLootTables.JUNGLE_TEMPLE, BuiltInLootTables.IGLOO_CHEST,
+                BuiltInLootTables.BURIED_TREASURE, BuiltInLootTables.SHIPWRECK_TREASURE,
+                BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE, BuiltInLootTables.WOODLAND_MANSION,
+                BuiltInLootTables.ANCIENT_CITY, BuiltInLootTables.RUINED_PORTAL, BuiltInLootTables.NETHER_BRIDGE,
+                BuiltInLootTables.BASTION_TREASURE, BuiltInLootTables.PIGLIN_BARTERING, BuiltInLootTables.END_CITY_TREASURE);
+
         addToLootTables(id, table, SummonerScrolls.LootTables.RARE_OVERWORLD, 0.06f,
                 BuiltInLootTables.WOODLAND_MANSION, BuiltInLootTables.ANCIENT_CITY
         );
