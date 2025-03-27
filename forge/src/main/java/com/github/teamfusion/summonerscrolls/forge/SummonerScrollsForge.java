@@ -61,11 +61,6 @@ public class SummonerScrollsForge {
             addToLootTables(event, SummonerScrolls.LootTables.END, 0.06f,
                     BuiltInLootTables.END_CITY_TREASURE
             );
-
-            addToLootTables(event, SummonerScrolls.LootTables.END, 0.06f,
-                    BuiltInLootTables.WOODLAND_MANSION, BuiltInLootTables.ANCIENT_CITY,
-                    BuiltInLootTables.ANCIENT_CITY_ICE_BOX, BuiltInLootTables.END_CITY_TREASURE
-            );
         }
 
         private static void addToLootTables(LootTableLoadEvent event, ResourceLocation lootTableId, float chance, ResourceLocation... vanillaTables) {

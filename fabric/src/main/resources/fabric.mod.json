@@ -30,6 +30,9 @@
   "entrypoints": {
     "main": [
       "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabric"
+    ],
+    "client": [
+      "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabricClient"
     ]
   },
   "mixins": [

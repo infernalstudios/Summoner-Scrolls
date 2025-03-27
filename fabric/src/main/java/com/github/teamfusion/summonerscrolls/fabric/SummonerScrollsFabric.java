@@ -75,11 +75,6 @@ public class SummonerScrollsFabric implements ModInitializer {
         addToLootTables(id, table, SummonerScrolls.LootTables.END, 0.06f,
                 BuiltInLootTables.END_CITY_TREASURE
         );
-
-        addToLootTables(id, table, SummonerScrolls.LootTables.END, 0.06f,
-                BuiltInLootTables.WOODLAND_MANSION, BuiltInLootTables.ANCIENT_CITY,
-                BuiltInLootTables.ANCIENT_CITY_ICE_BOX, BuiltInLootTables.END_CITY_TREASURE
-        );
     }
 
     private static void addToLootTables(ResourceLocation id, LootTable.Builder table, ResourceLocation customLootTable, float chance, ResourceLocation... vanillaTables) {

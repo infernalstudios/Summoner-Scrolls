@@ -18,7 +18,7 @@ public class SummonerScrolls {
     public static final String MOD_ID = "summonerscrolls";
     public static final String MOD_NAME = "Summoner Scrolls";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
-    public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SummonerClient::commonClientInitialize).postClient(SummonerClient::postClientInitialize).common(ModConfig::register).build();
+    public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).common(ModConfig::register).build();
 
 
     public static void commonInitialize() {
