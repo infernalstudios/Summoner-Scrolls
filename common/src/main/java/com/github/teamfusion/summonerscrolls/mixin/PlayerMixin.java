@@ -21,8 +21,11 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void hurt(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
+
+        Player player = (Player) (Object) this;
+
         if (damageSource.is(DamageTypes.EXPLOSION) && damageSource.getEntity() instanceof BaseSummonedEntity creeperSummon) {
-            if (creeperSummon.getOwner() == this) {
+            if (creeperSummon.getOwner() == player) {
                 cir.setReturnValue(false);
             }
         }

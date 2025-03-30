@@ -16,7 +16,6 @@ public class SummonerTrades {
     public static void init() {
         List<Supplier<Item>> items = ImmutableList.of(SummonerItems.ZOMBIE_SCROLL, SummonerItems.SPIDER_SCROLL, SummonerItems.SKELETON_SCROLL, SummonerItems.BEE_SCROLL);
 
-        // for some reason, forge doesn't want to accept EmeraldForItems, so we have to get the offer manually for some reason... may try implementing the listen() method in a future.
         items.forEach(item -> VillagerRegistry.addTrade(VillagerProfession.CLERIC, 1, (entity, random) -> new MerchantOffer(new ItemStack(item.get(), 1), new ItemStack(Items.EMERALD), 5, 2, 0.05F)));
     }
 }

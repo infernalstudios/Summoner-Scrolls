@@ -1,7 +1,6 @@
 package com.github.teamfusion.summonerscrolls.forge;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.client.SummonerClient;
 import com.github.teamfusion.summonerscrolls.client.render.entity.models.PiglinSummonModel;
 import com.github.teamfusion.summonerscrolls.client.render.entity.models.ZombieSummonModel;
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.BeeSummonRenderer;
@@ -20,10 +19,10 @@ import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.zombi
 import com.github.teamfusion.summonerscrolls.client.render.entity.renderer.zombie.ZombieSummonRenderer;
 import com.github.teamfusion.summonerscrolls.common.entity.SummonerEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SummonerItems;
-import com.github.teamfusion.summonerscrolls.mixin.ItemPropertiesAccessor;
 import com.github.teamfusion.summonerscrolls.platform.client.RenderRegistry;
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
@@ -83,8 +82,8 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void commonClient(FMLClientSetupEvent event) {
-        registerProperties(SummonerItems.SUMMON_BOW, new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        ItemProperties.register(SummonerItems.SUMMON_BOW.get(), new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0f;
             } else {
@@ -92,10 +91,10 @@ public class ClientEvents {
             }
         });
 
-        registerProperties(SummonerItems.SUMMON_BOW, new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) ->
+        ItemProperties.register(SummonerItems.SUMMON_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) ->
                 livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-        registerProperties(SummonerItems.SUMMON_CROSSBOW, new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+        ItemProperties.register(SummonerItems.SUMMON_CROSSBOW.get(), new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0f;
             } else {
@@ -103,14 +102,10 @@ public class ClientEvents {
             }
         });
 
-        registerProperties(SummonerItems.SUMMON_CROSSBOW, new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) ->
+        ItemProperties.register(SummonerItems.SUMMON_CROSSBOW.get(), new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) ->
                 livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-        registerProperties(SummonerItems.SUMMON_CROSSBOW, new ResourceLocation("charged"), (itemStack, clientLevel, livingEntity, i) ->
+        ItemProperties.register(SummonerItems.SUMMON_CROSSBOW.get(), new ResourceLocation("charged"), (itemStack, clientLevel, livingEntity, i) ->
                 CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
-    }
-
-    private static void registerProperties(Supplier<Item> item, ResourceLocation state, ClampedItemPropertyFunction function) {
-        ItemPropertiesAccessor.getPROPERTIES().computeIfAbsent(item.get(), entry -> Maps.newHashMap()).put(state, function);
     }
 }

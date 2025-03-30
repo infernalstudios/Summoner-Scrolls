@@ -1,6 +1,5 @@
 package com.github.teamfusion.summonerscrolls;
 
-import com.github.teamfusion.summonerscrolls.client.SummonerClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.config.ModConfig;
 import com.github.teamfusion.summonerscrolls.common.entity.SummonerEntityTypes;

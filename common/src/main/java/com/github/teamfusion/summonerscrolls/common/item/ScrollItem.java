@@ -61,6 +61,7 @@ public class ScrollItem<T extends Entity> extends Item {
         nbt.putInt("count", this.count);
         nbt.putInt("cost", this.cost);
         nbt.putInt("damageAmount", this.damageAmount);
+        stack.setTag(nbt);
     }
 
     @Override
