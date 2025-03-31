@@ -35,6 +35,16 @@ public class ScrollItem<T extends Entity> extends Item {
     }
 
     @Override
+    public void verifyTagAfterLoad(CompoundTag compoundTag) {
+        super.verifyTagAfterLoad(compoundTag);
+
+        compoundTag.putString("summon", BuiltInRegistries.ENTITY_TYPE.getKey(this.entitySupplier.get()).toString());
+        compoundTag.putInt("count", this.count);
+        compoundTag.putInt("cost", this.cost);
+        compoundTag.putInt("damageAmount", this.damageAmount);
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
 
@@ -55,13 +65,6 @@ public class ScrollItem<T extends Entity> extends Item {
 
         list.add((Component.translatable("item.summonerscrolls.summoner_scroll_desc_c", this.cost))
                 .withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
-
-        CompoundTag nbt = stack.getOrCreateTag();
-        nbt.putString("summon", BuiltInRegistries.ENTITY_TYPE.getKey(this.entitySupplier.get()).toString());
-        nbt.putInt("count", this.count);
-        nbt.putInt("cost", this.cost);
-        nbt.putInt("damageAmount", this.damageAmount);
-        stack.setTag(nbt);
     }
 
     @Override

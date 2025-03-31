@@ -136,8 +136,12 @@ public abstract class BaseSummonedEntity extends PathfinderMob implements ISummo
 
     @Override
     protected SoundEvent getDeathSound() {
+
+        // disabled april fools event because mod was broken day before, don't think that it'd be a good idea to have this
+        // funny april fools the day after the mod wasn't safe, so 2025 is disabled
+
         LocalDate today = LocalDate.now();
-        boolean aprilFools = today.getMonthValue() == 4 && today.getDayOfMonth() == 1;
+        boolean aprilFools = today.getMonthValue() == 4 && today.getDayOfMonth() == 1 && today.getYear() != 2025;
         return aprilFools ? SummonerSoundEvents.SUMMON_DEATH_APRIL.get() : SummonerSoundEvents.SUMMON_DEATH.get();
     }
 
