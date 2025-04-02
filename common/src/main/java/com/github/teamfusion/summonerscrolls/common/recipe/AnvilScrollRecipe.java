@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.recipe;
 
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -83,6 +84,7 @@ public class AnvilScrollRecipe implements Recipe<Container> {
         public static final String ID = "anvil_scroll";
 
         public AnvilScrollRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
+
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getNonNull(jsonObject, "scroll"));
             Ingredient ingredient2 = Ingredient.fromJson(GsonHelper.getNonNull(jsonObject, "upgrade"));
             ItemStack itemStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
@@ -99,6 +101,7 @@ public class AnvilScrollRecipe implements Recipe<Container> {
         }
 
         public void toNetwork(FriendlyByteBuf friendlyByteBuf, AnvilScrollRecipe anvilScrollRecipe) {
+
             anvilScrollRecipe.scroll.toNetwork(friendlyByteBuf);
             anvilScrollRecipe.upgrade.toNetwork(friendlyByteBuf);
             friendlyByteBuf.writeItem(anvilScrollRecipe.result);

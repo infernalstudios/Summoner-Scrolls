@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ShulkerBulletRendererMixin {
 
     @Shadow @Final private ShulkerBulletModel<ShulkerBullet> model;
-    @Shadow @Final private static RenderType RENDER_TYPE;
     @Unique
     private static final ResourceLocation SUMMON_TEXTURE = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/projectiles/spark_summon.png");
 

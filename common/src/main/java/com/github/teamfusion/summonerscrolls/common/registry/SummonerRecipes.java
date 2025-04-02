@@ -19,7 +19,7 @@ public class SummonerRecipes {
 
     public static final Supplier<RecipeSerializer<AnvilScrollRecipe>> ANVIL_SCROLL_SERIALIZER = RECIPE_SERIALIZERS.register(
             AnvilScrollRecipe.Serializer.ID,
-            AnvilScrollRecipe.Serializer::new
+            () -> AnvilScrollRecipe.Serializer.INSTANCE
     );
 
     public static final Supplier<RecipeType<AnvilScrollRecipe>> ANVIL_SCROLL_TYPE =
