@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "client.ShulkerBulletRendererMixin",
-    "client.GuiGraphicsMixin"
+    "client.ShulkerBulletRendererMixin"
   ],
   "mixins": [
     "AnvilMenuMixin",

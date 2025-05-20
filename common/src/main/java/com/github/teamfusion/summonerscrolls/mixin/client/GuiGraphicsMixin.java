@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls.mixin.client;
 
 import com.github.teamfusion.summonerscrolls.common.util.methodHolders.SummonerGuiGraphicsMixinHolder;
 import com.github.teamfusion.summonerscrolls.common.util.methodHolders.SummonerPlayerMixinHolder;
+import com.github.teamfusion.summonerscrolls.common.util.cooldowns.SummonerItemCooldowns;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +15,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,21 +33,17 @@ public abstract class GuiGraphicsMixin implements SummonerGuiGraphicsMixinHolder
     private void renderItemDecorations(Font font, ItemStack itemStack, int i, int j, @Nullable String string, CallbackInfo ci) {
 
         LocalPlayer localPlayer = this.minecraft.player;
-        float f = localPlayer == null ? 0.0F : localPlayer.getCooldowns().getCooldownPercent(itemStack.getItem(), this.minecraft.getFrameTime());
+        if (localPlayer == null) return;
 
+        float f = localPlayer.getCooldowns().getCooldownPercent(itemStack.getItem(), this.minecraft.getFrameTime());
+        if (f != 0.0F) return;
 
-        if (f == 0.0F) {
-            float p = ((SummonerPlayerMixinHolder)localPlayer).summonerscrolls$getSummonerCooldowns().getCooldownPercent(itemStack, 0.0F);
+        SummonerItemCooldowns summonerCooldowns = ((SummonerPlayerMixinHolder)localPlayer).summonerscrolls$getSummonerCooldowns();
+        float p = summonerCooldowns.getCooldownPercent(itemStack, 0.0F);
+        if (p <= 0.0F) return;
 
-
-            p = localPlayer == null ? 0.0F : p;
-
-            if (p > 0.0F) {
-                int m = j + Mth.floor(16.0F * (1.0F - p));
-                int n = m + Mth.ceil(16.0F * p);
-                this.fill(RenderType.guiOverlay(), i, m, i + 16, n, Integer.MAX_VALUE);
-
-            }
-        }
+        int m = j + Mth.floor(16.0F * (1.0F - p));
+        int n = m + Mth.ceil(16.0F * p);
+        this.fill(RenderType.guiOverlay(), i, m, i + 16, n, Integer.MAX_VALUE);
     }
 }

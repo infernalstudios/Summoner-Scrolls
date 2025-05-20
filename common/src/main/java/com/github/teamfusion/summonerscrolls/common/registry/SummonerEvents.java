@@ -4,6 +4,7 @@ import com.github.teamfusion.summonerscrolls.common.entity.base.ISummon;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import com.github.teamfusion.summonerscrolls.common.util.methodHolders.SummonerPlayerMixinHolder;
+import com.github.teamfusion.summonerscrolls.common.util.cooldowns.SummonerItemCooldowns;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -39,9 +40,10 @@ public class SummonerEvents {
             int entityCount = ScrollUtil.getEntityCount(nbt);
             int damage = ScrollUtil.getDamage(nbt);
 
+            SummonerItemCooldowns summonerCooldowns = ((SummonerPlayerMixinHolder)player).summonerscrolls$getSummonerCooldowns();
 
-            if (((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().isOnCooldown(itemStack)) {
-                float cooldownTicks = ((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().getCooldownPercent(itemStack, 0);
+            if (summonerCooldowns.isOnCooldown(itemStack)) {
+                float cooldownTicks = summonerCooldowns.getCooldownPercent(itemStack, 0);
                 int remainingTicks = (int) (cooldownTicks * 600);
                 int remainingSeconds = Math.max(1, remainingTicks / 20);
                 player.displayClientMessage(Component.translatable("message.summonerscrolls.cooldown", remainingSeconds), true);
@@ -55,7 +57,7 @@ public class SummonerEvents {
                 }
 
                 player.giveExperienceLevels(-xpCost);
-                ((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().addCooldown(itemStack, 1200);
+                summonerCooldowns.addCooldown(itemStack, 1200);
                 if (item instanceof ScrollItem) {
                     itemStack.hurt(1, level.random, (ServerPlayer) player);
                 }
