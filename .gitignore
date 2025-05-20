@@ -4,6 +4,8 @@ run/
 *.iws
 out/
 *.iml
+.gradle
+.idea
 .gradle/
 output/
 bin/

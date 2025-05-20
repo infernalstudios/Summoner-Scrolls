@@ -1,31 +1,25 @@
 package com.github.teamfusion.summonerscrolls.common.registry;
 
-import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.common.entity.SummonerEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.entity.base.ISummon;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
+import com.github.teamfusion.summonerscrolls.common.util.methodHolders.SummonerPlayerMixinHolder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.RandomSequence;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -46,8 +40,8 @@ public class SummonerEvents {
             int damage = ScrollUtil.getDamage(nbt);
 
 
-            if (player.getCooldowns().isOnCooldown(item)) {
-                float cooldownTicks = player.getCooldowns().getCooldownPercent(item, 0);
+            if (((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().isOnCooldown(itemStack)) {
+                float cooldownTicks = ((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().getCooldownPercent(itemStack, 0);
                 int remainingTicks = (int) (cooldownTicks * 600);
                 int remainingSeconds = Math.max(1, remainingTicks / 20);
                 player.displayClientMessage(Component.translatable("message.summonerscrolls.cooldown", remainingSeconds), true);
@@ -61,7 +55,7 @@ public class SummonerEvents {
                 }
 
                 player.giveExperienceLevels(-xpCost);
-                player.getCooldowns().addCooldown(item, 1200);
+                ((SummonerPlayerMixinHolder) player).summonerscrolls$getSummonerCooldowns().addCooldown(itemStack, 1200);
                 if (item instanceof ScrollItem) {
                     itemStack.hurt(1, level.random, (ServerPlayer) player);
                 }
