@@ -6,13 +6,11 @@ import java.util.Map;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
-
+//TODO: Right now this class is pretty 1-to-1 with the vanilla cooldowns, with some unnecessary things.
+// Don't forget to refactor/clean up once the cooldown system is fully implemented and working
 public class SummonerItemCooldowns {
     private final Map<ItemStack, SummonerCooldownInstance> cooldowns = Maps.newHashMap();
     private int tickCount;
-
-    public SummonerItemCooldowns() {
-    }
 
     public static SummonerItemCooldowns createSummonerItemCooldowns(){
         return new SummonerItemCooldowns();
