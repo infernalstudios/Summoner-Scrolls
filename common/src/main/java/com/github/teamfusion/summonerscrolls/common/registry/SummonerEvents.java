@@ -30,6 +30,9 @@ public class SummonerEvents {
         Level level = player.level();
         ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
+
+        if (!itemStack.hasTag()) {return;}
+
         CompoundTag nbt = itemStack.getOrCreateTag();
 
         if (!level.isClientSide() && ScrollUtil.hasScrollProperties(nbt)) {
