@@ -31,7 +31,7 @@ public class SummonerEvents {
         ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
 
-        if (!itemStack.hasTag()) {return;}
+        if (!itemStack.hasTag()) return;
 
         CompoundTag nbt = itemStack.getOrCreateTag();
 
