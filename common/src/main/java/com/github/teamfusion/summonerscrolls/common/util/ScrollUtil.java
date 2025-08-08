@@ -4,11 +4,13 @@ import com.github.teamfusion.summonerscrolls.common.config.ConfigEntries;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -65,7 +67,8 @@ public class ScrollUtil {
 
         if (rightItem instanceof ScrollItem && !hasScrollProperties(leftNbt)) {
 
-            if (leftItem instanceof TieredItem) {
+            if (leftItem.builtInRegistryHolder().is(TagKey.create(Registries.ITEM,
+                    new ResourceLocation("summonerscrolls", "summoning_items")))){
 
                 ItemStack copy = left.copy();
                 CompoundTag scrollTag = right.getTag();
